@@ -35,13 +35,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Shapes.unity
     guid: 776b49f20c353e546a39d87ace08e1e3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Space.unity
     guid: a87b5451770bf91429541e0dbc790ce6
   - enabled: 1
     path: Assets/Scenes/Transportation.unity
     guid: a8a098b94f326004683379ec531a12e5
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 2238d457089b9494896515a25debf01c,
+      type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: f361c56460407704eb768200bb03af6f,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c008fd3f3c8f08d4ba6b3942b9a3c325,
