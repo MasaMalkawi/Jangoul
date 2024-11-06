@@ -6,6 +6,8 @@ public class TriggerZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Player entered the trigger zone and audio is playing.");
+
         if (other.CompareTag("Player") && guideAudio != null)
         {
             if (!guideAudio.isPlaying)
