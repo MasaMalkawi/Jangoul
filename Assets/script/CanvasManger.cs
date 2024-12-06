@@ -2,20 +2,28 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    public GameObject canvasStart; // Reference to the Start Canvas
-    public GameObject canvasMain;  // Reference to the Main Canvas
+    [SerializeField] private GameObject[] canvases; // Array to hold your canvases
+
+    private int currentCanvasIndex = 0; // Tracks the currently active canvas
 
     void Start()
     {
-        // Ensure only the Start Canvas is active initially
-        canvasStart.SetActive(true);
-        canvasMain.SetActive(false);
+        ShowCanvas(currentCanvasIndex); // Show the first canvas at the start
     }
 
-    public void OnStartButtonClicked()
+    // Method to show the specified canvas and hide others
+    public void ShowCanvas(int index)
     {
-        // Switch visibility of canvases
-        canvasStart.SetActive(false);
-        canvasMain.SetActive(true);
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            canvases[i].SetActive(i == index); // Show the current canvas, hide others
+        }
+    }
+
+    // Method to navigate to the next canvas
+    public void NextCanvas()
+    {
+        currentCanvasIndex = (currentCanvasIndex + 1) % canvases.Length; // Loop back to the first canvas if needed
+        ShowCanvas(currentCanvasIndex);
     }
 }
