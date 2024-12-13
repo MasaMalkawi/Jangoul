@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5167074933845074337}
   - component: {fileID: -1935706156164554897}
   - component: {fileID: -7083267390238777574}
+  - component: {fileID: -7265105447530258497}
   m_Layer: 0
   m_Name: bananas
-  m_TagString: Untagged
+  m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,6 +242,21 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &-7265105447530258497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599664697009537076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f08f55818349724b822296f8bf26b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: Fruit
+  successSound: {fileID: 8300000, guid: e5f6bbfa8f107364fb2b6895f3a2f7c4, type: 3}
+  errorSound: {fileID: 8300000, guid: 59387089b1b721043b3b464be6ba905b, type: 3}
 --- !u!1001 &466088582743469374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -249,6 +265,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9041355926749313969}
     m_Modifications:
+    - target: {fileID: -5567261300216735655, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: objectType
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2727568370581685501, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
       propertyPath: m_RootOrder
@@ -309,6 +330,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: banana (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3355626302234992199, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3524108090092394749, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
       propertyPath: m_Convex
@@ -333,6 +359,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9041355926749313969}
     m_Modifications:
+    - target: {fileID: -5567261300216735655, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: objectType
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2727568370581685501, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
       propertyPath: m_RootOrder
@@ -363,6 +394,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: banana (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3355626302234992199, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3524108090092394749, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
       propertyPath: m_Convex
@@ -387,6 +423,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9041355926749313969}
     m_Modifications:
+    - target: {fileID: -5567261300216735655, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: objectType
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2727568370581685501, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
       propertyPath: m_RootOrder
@@ -447,6 +488,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: banana (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3355626302234992199, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3524108090092394749, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
       propertyPath: m_Convex
@@ -471,6 +517,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9041355926749313969}
     m_Modifications:
+    - target: {fileID: -5567261300216735655, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: objectType
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2727568370581685501, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
       propertyPath: m_RootOrder
@@ -530,6 +581,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: banana (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355626302234992199, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3524108090092394749, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
@@ -639,6 +695,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9041355926749313969}
     m_Modifications:
+    - target: {fileID: -5567261300216735655, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: objectType
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2727568370581685501, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}
       propertyPath: m_RootOrder
@@ -698,6 +759,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: banana (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355626302234992199, guid: 7b7a60980f07021488b8f2c94a96f93c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3524108090092394749, guid: 7b7a60980f07021488b8f2c94a96f93c,
         type: 3}

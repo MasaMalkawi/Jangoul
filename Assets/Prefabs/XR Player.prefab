@@ -2990,8 +2990,8 @@ GameObject:
   - component: {fileID: 1087038179025531043}
   - component: {fileID: 1474107772910171766}
   - component: {fileID: 3764399888584008781}
-  - component: {fileID: 4283351192684889193}
   - component: {fileID: 7670699381989371645}
+  - component: {fileID: 4283351192684889193}
   m_Layer: 2
   m_Name: XR Origin
   m_TagString: Untagged
@@ -3203,6 +3203,21 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
+--- !u!114 &7670699381989371645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7853981933187725066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af6bf904e410ee8479f9093d8830d1f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LocomotionProvider: {fileID: 7351721036961988751}
+  m_MinHeight: 0.3
+  m_MaxHeight: Infinity
 --- !u!143 &4283351192684889193
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3229,21 +3244,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7670699381989371645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7853981933187725066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af6bf904e410ee8479f9093d8830d1f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_LocomotionProvider: {fileID: 7351721036961988751}
-  m_MinHeight: 0.3
-  m_MaxHeight: Infinity
 --- !u!1 &8205744344584072180
 GameObject:
   m_ObjectHideFlags: 0

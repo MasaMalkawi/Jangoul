@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 2608693884589364321}
   - component: {fileID: 3043094162562298218}
   - component: {fileID: 1271674364953990371}
+  - component: {fileID: 7123498156203264186}
+  - component: {fileID: -6254053795823211590}
   m_Layer: 0
   m_Name: cucumber
-  m_TagString: Untagged
+  m_TagString: Vegetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,3 +289,33 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &7123498156203264186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2487063622148458391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f08f55818349724b822296f8bf26b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 
+  successSound: {fileID: 8300000, guid: e5f6bbfa8f107364fb2b6895f3a2f7c4, type: 3}
+  errorSound: {fileID: 8300000, guid: 59387089b1b721043b3b464be6ba905b, type: 3}
+--- !u!114 &-6254053795823211590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2487063622148458391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f08f55818349724b822296f8bf26b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: Vegetable
+  successSound: {fileID: 8300000, guid: e5f6bbfa8f107364fb2b6895f3a2f7c4, type: 3}
+  errorSound: {fileID: 8300000, guid: 59387089b1b721043b3b464be6ba905b, type: 3}
