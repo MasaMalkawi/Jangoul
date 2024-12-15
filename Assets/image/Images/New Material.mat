@@ -9,14 +9,14 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: New Material
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: 4ad38fa3751d3f346a77bac3e9964b6b, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_Parent: {fileID: 2100000, guid: cfc0bd193d3d2ae42929165512c27ce6, type: 2}
+  m_ModifiedSerializedProperties: 16
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -25,17 +25,18 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: c1515bfbadd3ce84599756725a66ca4a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6a2795ea98b1acc448aadd4023cc7907, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c1515bfbadd3ce84599756725a66ca4a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6a2795ea98b1acc448aadd4023cc7907, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Metallic: 0.59
-    - _Smoothness: 0
+    - _QueueOffset: 0
+    - _Smoothness: 0.45
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &9121911035418045948
