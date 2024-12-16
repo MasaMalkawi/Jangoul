@@ -8,6 +8,9 @@ public class MagneticObject : MonoBehaviour
 
     private bool isHeld = false; // Tracks if the player is holding the object
     private Rigidbody rb; // Rigidbody of the object
+    private bool isSnapped = false; // Tracks if the object is snapped
+
+    public bool IsSnapped => isSnapped; // Public read-only property to check snapped state
 
     void Start()
     {
@@ -20,10 +23,9 @@ public class MagneticObject : MonoBehaviour
 
     void Update()
     {
-        // Only perform snapping logic if the object is not being held
-        if (!isHeld && targetCanvas != null)
+        // Only perform snapping logic if the object is not being held and not already snapped
+        if (!isHeld && !isSnapped && targetCanvas != null)
         {
-            // Check if the object is close enough to snap
             float distanceToCanvas = Vector3.Distance(transform.position, targetCanvas.transform.position);
 
             if (distanceToCanvas <= snapDistance)
@@ -38,7 +40,9 @@ public class MagneticObject : MonoBehaviour
     {
         Debug.Log("Object grabbed!");
         isHeld = true; // Object is now held
+        isSnapped = false; // Mark as unsnapped
         rb.isKinematic = true; // Disable physics while held
+        transform.SetParent(null); // Detach from parent while being held
     }
 
     // Call this method when the player releases the object
@@ -48,22 +52,69 @@ public class MagneticObject : MonoBehaviour
         isHeld = false; // Object is no longer held
         rb.isKinematic = false; // Re-enable physics
 
-        // Snap the object to the canvas based on its current position relative to the canvas
-        SnapToCanvas();
+        // Check for snapping after release
+        if (targetCanvas != null)
+        {
+            float distanceToCanvas = Vector3.Distance(transform.position, targetCanvas.transform.position);
+
+            if (distanceToCanvas <= snapDistance)
+            {
+                SnapToCanvas();
+            }
+        }
     }
 
     // Snaps the object to the target canvas
     private void SnapToCanvas()
     {
-        // Calculate the position on the canvas where the object is released
-        Vector3 canvasPosition = targetCanvas.transform.InverseTransformPoint(transform.position);
+        Debug.Log("Object snapped to canvas!");
 
-        // Set the object's local position relative to the canvas
-        transform.SetParent(targetCanvas.transform);
-        transform.localPosition = new Vector3(canvasPosition.x, canvasPosition.y, 0); // Set Z to 0 or adjust as needed
-        transform.localRotation = Quaternion.identity; // Reset rotation or set to desired rotation
+        if (snapPoint != null)
+        {
+            // Snap to a specific point if provided
+            transform.position = snapPoint.position;
+            transform.rotation = snapPoint.rotation;
+        }
+        else
+        {
+            // Calculate position relative to the canvas
+            Vector3 canvasPosition = targetCanvas.transform.InverseTransformPoint(transform.position);
+
+            // Set local position and rotation on the canvas
+            transform.SetParent(targetCanvas.transform);
+            transform.localPosition = new Vector3(canvasPosition.x, canvasPosition.y, 0); // Adjust Z as needed
+            transform.localRotation = Quaternion.identity; // Reset rotation or set to desired rotation
+        }
 
         // Lock the object in place after snapping
         rb.isKinematic = true;
+        isSnapped = true;
+    }
+
+    // Unsnap the object, allowing it to be moved again
+    public void Unsnap()
+    {
+        Debug.Log("Object unsnapped!");
+        isSnapped = false;
+        rb.isKinematic = false;
+        transform.SetParent(null); // Detach from parent
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Optional: Automatically snap if entering a specific zone
+        if (!isHeld && other.gameObject == targetCanvas)
+        {
+            SnapToCanvas();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Optional: Unsnap if leaving the snap zone
+        if (isSnapped && other.gameObject == targetCanvas)
+        {
+            Unsnap();
+        }
     }
 }
