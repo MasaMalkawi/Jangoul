@@ -8,6 +8,20 @@ TagManager:
   - VegetableBasket
   - Fruit
   - Vegetable
+  - RedBasket
+  - GreenBasket
+  - BlueBasket
+  - BlackBasket
+  - OrangeBasket
+  - WhiteBasket
+  - YellowBasket
+  - White
+  - Yellow
+  - Orange
+  - Black
+  - Red
+  - Green
+  - Blue
   layers:
   - Default
   - TransparentFX
