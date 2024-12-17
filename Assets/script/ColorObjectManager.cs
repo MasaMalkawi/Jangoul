@@ -61,6 +61,7 @@ public class ColorObjectManager : MonoBehaviour
         {
             if (collider.CompareTag(objectColor + "Basket"))
             {
+                // إذا كانت السلة هي السلة الصحيحة، قم بتشغيل الصوت التحفيزي
                 Debug.Log($"تم وضع اللون {objectColor} في السلة الصحيحة.");
                 PlaySuccessSound();
                 isCorrectBasket = true;
@@ -72,6 +73,7 @@ public class ColorObjectManager : MonoBehaviour
                      collider.CompareTag("BlackBasket") || collider.CompareTag("WhiteBasket") ||
                      collider.CompareTag("OrangeBasket"))
             {
+                // إذا كانت السلة خاطئة، قم بتشغيل الصوت وإرجاع الكائن
                 Debug.Log($"تم وضع اللون {objectColor} في السلة الخاطئة.");
                 PlayErrorSound();
                 ReturnToOriginalPosition();
