@@ -58,50 +58,18 @@ public class FruitAndVegetableManager : MonoBehaviour
 
         foreach (var collider in colliders)
         {
-            if (collider.CompareTag("GreenBasket") && objectType == "Green")
+            if (collider.CompareTag("FruitBasket") && objectType == "Fruit")
             {
-                // وضع العنصر الأخضر في سلة اللون الأخضر
-                Debug.Log("تم وضع العنصر الأخضر في سلة اللون الأخضر");
+                // وضع الفاكهة في سلة الفواكه
+                Debug.Log("تم وضع الفاكهة في سلة الفواكه");
                 PlaySuccessSound(); // تشغيل الصوت التحفيزي
                 isCorrectBasket = true;
                 break;
             }
-            else if (collider.CompareTag("BlueBasket") && objectType == "Blue")
+            else if (collider.CompareTag("VegetableBasket") && objectType == "Vegetable")
             {
-                // وضع العنصر الأزرق في سلة اللون الأزرق
-                Debug.Log("تم وضع العنصر الأزرق في سلة اللون الأزرق");
-                PlaySuccessSound(); // تشغيل الصوت التحفيزي
-                isCorrectBasket = true;
-                break;
-            }
-            else if (collider.CompareTag("BlackBasket") && objectType == "Black")
-            {
-                // وضع العنصر الأسود في سلة اللون الأسود
-                Debug.Log("تم وضع العنصر الأسود في سلة اللون الأسود");
-                PlaySuccessSound(); // تشغيل الصوت التحفيزي
-                isCorrectBasket = true;
-                break;
-            }
-            else if (collider.CompareTag("WhiteBasket") && objectType == "White")
-            {
-                // وضع العنصر الأبيض في سلة اللون الأبيض
-                Debug.Log("تم وضع العنصر الأبيض في سلة اللون الأبيض");
-                PlaySuccessSound(); // تشغيل الصوت التحفيزي
-                isCorrectBasket = true;
-                break;
-            }
-            else if (collider.CompareTag("OrangeBasket") && objectType == "Orange")
-            {
-                // وضع العنصر البرتقالي في سلة اللون البرتقالي
-                Debug.Log("تم وضع العنصر البرتقالي في سلة اللون البرتقالي");
-                PlaySuccessSound(); // تشغيل الصوت التحفيزي
-                isCorrectBasket = true;
-                break;
-            }
-            else if (collider.CompareTag("YellowBasket") && objectType == "Yellow")
-            {
-                // وضع العنصر الأصفر في سلة اللون الأصفر
-                Debug.Log("تم وضع العنصر الأصفر في سلة اللون الأصفر");
+                // وضع الخضراوات في سلة الخضراوات
+                Debug.Log("تم وضع الخضراوات في سلة الخضراوات");
                 PlaySuccessSound(); // تشغيل الصوت التحفيزي
                 isCorrectBasket = true;
                 break;

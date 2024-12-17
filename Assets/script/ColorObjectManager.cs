@@ -54,26 +54,36 @@ public class ColorObjectManager : MonoBehaviour
     {
         // تحقق من السلة التي يتم وضع الكائن فيها
         Collider[] colliders = Physics.OverlapSphere(transform.position, 0.5f); // المسافة التي يمكن أن تلتقط فيها السلة
-        bool isCorrectBasket = false; // هل الكائن وضع في السلة الصحيحة؟
+        bool touchedAnyBasket = false; // هل لمس الكائن أي سلة؟
+        bool isCorrectBasket = false; // هل السلة صحيحة؟
 
         foreach (var collider in colliders)
         {
-            if (collider.CompareTag("RedBasket")) // تحقق من السلة المناسبة بناءً على النص
+            if (collider.CompareTag(objectColor + "Basket"))
             {
-                // وضع الكائن في السلة الصحيحة
                 Debug.Log($"تم وضع اللون {objectColor} في السلة الصحيحة.");
-                PlaySuccessSound(); // تشغيل الصوت التحفيزي
+                PlaySuccessSound();
                 isCorrectBasket = true;
+                touchedAnyBasket = true;
+                break;
+            }
+            else if (collider.CompareTag("RedBasket") || collider.CompareTag("GreenBasket") ||
+                     collider.CompareTag("BlueBasket") || collider.CompareTag("YellowBasket") ||
+                     collider.CompareTag("BlackBasket") || collider.CompareTag("WhiteBasket") ||
+                     collider.CompareTag("OrangeBasket"))
+            {
+                Debug.Log($"تم وضع اللون {objectColor} في السلة الخاطئة.");
+                PlayErrorSound();
+                ReturnToOriginalPosition();
+                touchedAnyBasket = true;
                 break;
             }
         }
 
-        // إذا لم يتم وضع الكائن في السلة الصحيحة
-        if (!isCorrectBasket)
+        // إذا لم يتم لمس أي سلة، لا تفعل شيئًا
+        if (!touchedAnyBasket)
         {
-            Debug.Log($"تم وضع اللون {objectColor} في السلة الخاطئة. إعادة الكائن إلى مكانه الأصلي.");
-            PlayErrorSound(); // تشغيل صوت الخطأ
-            ReturnToOriginalPosition();
+            Debug.Log("لم يتم لمس أي سلة. يبقى الكائن في مكانه.");
         }
     }
 
@@ -81,7 +91,7 @@ public class ColorObjectManager : MonoBehaviour
     {
         if (audioSource != null && successSound != null)
         {
-            audioSource.PlayOneShot(successSound); // تشغيل الصوت التحفيزي
+            audioSource.PlayOneShot(successSound);
         }
     }
 
@@ -89,13 +99,12 @@ public class ColorObjectManager : MonoBehaviour
     {
         if (audioSource != null && errorSound != null)
         {
-            audioSource.PlayOneShot(errorSound); // تشغيل صوت الخطأ
+            audioSource.PlayOneShot(errorSound);
         }
     }
 
     private void ReturnToOriginalPosition()
     {
-        // إعادة الكائن إلى مكانه الأصلي
         transform.position = originalPosition;
         transform.rotation = originalRotation;
     }
