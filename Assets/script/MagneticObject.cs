@@ -2,119 +2,107 @@ using UnityEngine;
 
 public class MagneticObject : MonoBehaviour
 {
-    [SerializeField] private GameObject targetCanvas; // The canvas this object snaps to
-    [SerializeField] private float snapDistance = 0.5f; // Distance at which snapping happens
-    [SerializeField] private Transform snapPoint; // Optional: Specific point on the canvas to snap to
+    [Header("Magnetic Settings")]
+    [SerializeField] private GameObject targetCanvas;    // The canvas or target area to magnetize towards
+    [SerializeField] private float magneticRange = 1.0f; // Range within which magnetism applies
+    [SerializeField] private float snapSpeed = 5f;       // Speed at which the object is pulled towards the target
 
+    private Rigidbody rb;       // Rigidbody of the object
     private bool isHeld = false; // Tracks if the player is holding the object
-    private Rigidbody rb; // Rigidbody of the object
-    private bool isSnapped = false; // Tracks if the object is snapped
-
-    public bool IsSnapped => isSnapped; // Public read-only property to check snapped state
+    private bool isSnapped = false; // To check if it's snapped
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         if (rb == null)
         {
-            Debug.LogError("No Rigidbody found on the object. Please add one!");
+            Debug.LogError("No Rigidbody found! Please add a Rigidbody to the object.");
         }
     }
 
     void Update()
     {
-        // Only perform snapping logic if the object is not being held and not already snapped
         if (!isHeld && !isSnapped && targetCanvas != null)
         {
+            // Calculate the distance to the target canvas
             float distanceToCanvas = Vector3.Distance(transform.position, targetCanvas.transform.position);
 
-            if (distanceToCanvas <= snapDistance)
+            // If within magnetic range, start pulling the object towards the canvas
+            if (distanceToCanvas <= magneticRange)
             {
-                SnapToCanvas();
+                MagnetizeToCanvas();
             }
         }
     }
 
-    // Call this method when the player grabs the object
+    /// <summary>
+    /// Magnetizes (smoothly pulls) the object towards the target canvas.
+    /// </summary>
+    private void MagnetizeToCanvas()
+    {
+        Debug.Log("Object being magnetized towards the target...");
+
+        // Get the direction towards the target canvas
+        Vector3 direction = (targetCanvas.transform.position - transform.position).normalized;
+
+        // Move the object smoothly towards the target canvas
+        rb.MovePosition(Vector3.Lerp(transform.position, targetCanvas.transform.position, snapSpeed * Time.deltaTime));
+
+        // Convert world position to canvas local position
+        Vector3 localPositionOnCanvas = targetCanvas.transform.InverseTransformPoint(transform.position);
+
+        // If the object is close enough, snap it to the canvas
+        if (Vector3.Distance(localPositionOnCanvas, Vector3.zero) <= 0.1f)
+        {
+            SnapToCanvas(localPositionOnCanvas);
+        }
+    }
+
+    /// <summary>
+    /// Snaps the object to the target canvas at its relative position.
+    /// </summary>
+    private void SnapToCanvas(Vector3 relativePosition)
+    {
+        Debug.Log("Object snapped to the canvas!");
+
+        // Snap the object relative to the canvas at its current position
+        transform.SetParent(targetCanvas.transform, true);
+
+        // Set the object's local position to its position on the canvas
+        transform.localPosition = relativePosition;
+        transform.localRotation = Quaternion.identity; // Optionally reset rotation
+
+        // Lock the object at the canvas position
+        rb.isKinematic = true;   // Disable physics after snap
+        isSnapped = true;        // Mark as snapped
+    }
+
+    /// <summary>
+    /// Call this method when the player grabs the object.
+    /// </summary>
     public void OnGrab()
     {
         Debug.Log("Object grabbed!");
-        isHeld = true; // Object is now held
-        isSnapped = false; // Mark as unsnapped
-        rb.isKinematic = true; // Disable physics while held
-        transform.SetParent(null); // Detach from parent while being held
+        isHeld = true;           // Object is now held
+        rb.isKinematic = true;   // Disable physics while held
     }
 
-    // Call this method when the player releases the object
+    /// <summary>
+    /// Call this method when the player releases the object.
+    /// </summary>
     public void OnRelease()
     {
         Debug.Log("Object released!");
-        isHeld = false; // Object is no longer held
-        rb.isKinematic = false; // Re-enable physics
+        isHeld = false;          // Object is no longer held
+        rb.isKinematic = false;  // Re-enable physics
+        isSnapped = false;       // Reset snap state
 
-        // Check for snapping after release
-        if (targetCanvas != null)
+        // If close enough to the canvas, snap it
+        float distanceToCanvas = Vector3.Distance(transform.position, targetCanvas.transform.position);
+        if (distanceToCanvas <= magneticRange)
         {
-            float distanceToCanvas = Vector3.Distance(transform.position, targetCanvas.transform.position);
-
-            if (distanceToCanvas <= snapDistance)
-            {
-                SnapToCanvas();
-            }
-        }
-    }
-
-    // Snaps the object to the target canvas
-    private void SnapToCanvas()
-    {
-        Debug.Log("Object snapped to canvas!");
-
-        if (snapPoint != null)
-        {
-            // Snap to a specific point if provided
-            transform.position = snapPoint.position;
-            transform.rotation = snapPoint.rotation;
-        }
-        else
-        {
-            // Calculate position relative to the canvas
-            Vector3 canvasPosition = targetCanvas.transform.InverseTransformPoint(transform.position);
-
-            // Set local position and rotation on the canvas
-            transform.SetParent(targetCanvas.transform);
-            transform.localPosition = new Vector3(canvasPosition.x, canvasPosition.y, 0); // Adjust Z as needed
-            transform.localRotation = Quaternion.identity; // Reset rotation or set to desired rotation
-        }
-
-        // Lock the object in place after snapping
-        rb.isKinematic = true;
-        isSnapped = true;
-    }
-
-    // Unsnap the object, allowing it to be moved again
-    public void Unsnap()
-    {
-        Debug.Log("Object unsnapped!");
-        isSnapped = false;
-        rb.isKinematic = false;
-        transform.SetParent(null); // Detach from parent
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // Optional: Automatically snap if entering a specific zone
-        if (!isHeld && other.gameObject == targetCanvas)
-        {
-            SnapToCanvas();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        // Optional: Unsnap if leaving the snap zone
-        if (isSnapped && other.gameObject == targetCanvas)
-        {
-            Unsnap();
+            Vector3 localPositionOnCanvas = targetCanvas.transform.InverseTransformPoint(transform.position);
+            SnapToCanvas(localPositionOnCanvas);
         }
     }
 }

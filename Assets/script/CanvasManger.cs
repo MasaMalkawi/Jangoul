@@ -2,36 +2,55 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    [Header("Canvas Management")]
-    [SerializeField] private GameObject[] canvases; // Canvases to manage
-    private int currentCanvasIndex = 0; // Tracks the active canvas index
+    [SerializeField] private GameObject[] canvases; // Array to hold your canvases
+    private ObjectManager objectManager; // Reference to the ObjectManager
+
+    private int currentCanvasIndex = 0; // Tracks the currently active canvas
 
     void Start()
     {
-        // Initialize canvas
+        // Find the ObjectManager in the scene
+        objectManager = FindObjectOfType<ObjectManager>();
+
+        // Show the first canvas and notify ObjectManager
         ShowCanvas(currentCanvasIndex);
     }
 
-    // Show a specific canvas by index
+    // Method to show the specified canvas and hide others
     public void ShowCanvas(int index)
     {
-        if (index < 0 || index >= canvases.Length)
-        {
-            Debug.LogError("Invalid canvas index: " + index);
-            return;
-        }
-
-        // Deactivate all canvases, then activate the selected one
         for (int i = 0; i < canvases.Length; i++)
         {
-            canvases[i].SetActive(i == index);
+            canvases[i].SetActive(i == index); // Show the specified canvas, hide others
+        }
+
+        // Notify the ObjectManager to show the associated objects
+        if (objectManager != null)
+        {
+            objectManager.ShowObjects(index); // Use ShowObjects instead of ShowObject
+        }
+        else
+        {
+            Debug.LogWarning("ObjectManager not found in the scene!");
         }
     }
 
-    // Switch to the next canvas
+    // Method to navigate to the next canvas
     public void NextCanvas()
     {
-        currentCanvasIndex = (currentCanvasIndex + 1) % canvases.Length;
+        // Deactivate the current canvas
+        canvases[currentCanvasIndex].SetActive(false);
+
+        // Move to the next canvas in order
+        currentCanvasIndex++;
+
+        // Reset to the first canvas if at the end
+        if (currentCanvasIndex >= canvases.Length)
+        {
+            currentCanvasIndex = 0;
+        }
+
+        // Show the next canvas
         ShowCanvas(currentCanvasIndex);
     }
 }
