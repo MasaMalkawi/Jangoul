@@ -8,10 +8,16 @@ public class SnapPoint : MonoBehaviour
     public float snapDistance = 0.5f; // Distance threshold to allow snapping
     public float snapDuration = 0.2f; // Duration for smooth snapping
 
+    [Header("Firework Settings")]
+    public GameObject fireworkPrefab; // Assign your firework prefab here
+    public Transform fireworkSpawnPoint; // Optional: where the firework will spawn
+    public int totalObjectsToSnap; // Total number of objects that must be snapped to trigger fireworks
+
     private bool isSnapped = false; // Whether an object is currently snapped
     private GameObject currentSnappedObject; // The currently snapped object
+    public int snappedObjectCount = 0; // Tracks how many objects have been snapped
 
-    void Update()
+    private void Update()
     {
         // Check if an object is being held and close enough to snap
         if (currentSnappedObject == null || isSnapped) return;
@@ -23,56 +29,13 @@ public class SnapPoint : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Call this method when the object is grabbed.
-    /// </summary>
-    public void OnGrab(GameObject obj)
-    {
-        Debug.Log("Object grabbed!");
-        if (currentSnappedObject == obj)
-        {
-            Unsnap(); // Allow unsnapping when grabbed
-        }
-
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = true;
-        }
-
-        isSnapped = false;
-        currentSnappedObject = obj;
-        obj.transform.SetParent(null);
-    }
-
-    /// <summary>
-    /// Call this method when the object is released.
-    /// </summary>
-    public void OnRelease(GameObject obj)
-    {
-        Debug.Log("Object released!");
-        Rigidbody rb = obj.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.isKinematic = false; // Re-enable physics
-        }
-
-        float distance = Vector3.Distance(obj.transform.position, snapPosition.position);
-        if (distance <= snapDistance)
-        {
-            StartCoroutine(SmoothSnap(obj));
-        }
-    }
-
-    /// <summary>
-    /// Smoothly snaps the object to the snap position.
-    /// </summary>
+    // Smoothly snaps the object to the snap position.
     private IEnumerator SmoothSnap(GameObject obj)
     {
-        Debug.Log("Smooth snapping started...");
         isSnapped = true;
         currentSnappedObject = obj;
 
+        // Snap object smoothly
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -95,16 +58,67 @@ public class SnapPoint : MonoBehaviour
         obj.transform.position = snapPosition.position;
         obj.transform.rotation = snapPosition.rotation;
 
-        Debug.Log("Object snapped!");
+        snappedObjectCount++;
+
+        // Trigger fireworks when all objects are snapped
+        if (snappedObjectCount >= totalObjectsToSnap)
+        {
+            TriggerFireworks();
+        }
     }
 
-    /// <summary>
-    /// Unsnap the currently snapped object.
-    /// </summary>
+    public void TriggerFireworks()
+    {
+        // Instantiate fireworks only when all objects are snapped
+        if (fireworkPrefab != null)
+        {
+            // Instantiate at the spawn point or snap point
+            Instantiate(fireworkPrefab, fireworkSpawnPoint ? fireworkSpawnPoint.position : transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("Firework prefab is not assigned!");
+        }
+    }
+
+    // Call this method when the object is grabbed.
+    public void OnGrab(GameObject obj)
+    {
+        if (currentSnappedObject == obj)
+        {
+            Unsnap(); // Allow unsnapping when grabbed
+        }
+
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
+
+        isSnapped = false;
+        currentSnappedObject = obj;
+        obj.transform.SetParent(null);
+    }
+
+    // Call this method when the object is released.
+    public void OnRelease(GameObject obj)
+    {
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = false; // Re-enable physics
+        }
+
+        float distance = Vector3.Distance(obj.transform.position, snapPosition.position);
+        if (distance <= snapDistance)
+        {
+            StartCoroutine(SmoothSnap(obj));
+        }
+    }
+
+    // Unsnap the currently snapped object.
     public void Unsnap()
     {
-        Debug.Log("Object unsnapped!");
-
         if (currentSnappedObject != null)
         {
             Rigidbody rb = currentSnappedObject.GetComponent<Rigidbody>();
@@ -117,23 +131,5 @@ public class SnapPoint : MonoBehaviour
         }
 
         isSnapped = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // Automatically snap objects with the "Grabbable" tag
-        if (!isSnapped && other.CompareTag("Grabbable"))
-        {
-            StartCoroutine(SmoothSnap(other.gameObject));
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        // Unsnap when leaving the trigger area
-        if (isSnapped && other.gameObject == currentSnappedObject)
-        {
-            Unsnap();
-        }
     }
 }

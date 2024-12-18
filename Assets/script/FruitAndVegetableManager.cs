@@ -3,84 +3,116 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class FruitAndVegetableManager : MonoBehaviour
 {
-    public string objectType; // يمكن أن يكون "فاكهة" أو "خضراوات"
+    public string objectType; // Can be "Fruit" or "Vegetable"
     private XRGrabInteractable grabInteractable;
     private Rigidbody rb;
-    private Vector3 originalPosition; // لتخزين الموقع الأصلي
-    private Quaternion originalRotation; // لتخزين التدوير الأصلي
-    public AudioClip successSound; // الصوت التحفيزي عند وضع الفاكهة أو الخضراوات في السلة الصحيحة
-    public AudioClip errorSound;   // الصوت الذي يتم تشغيله عند وضع الكائن في السلة الخاطئة
+    private Vector3 originalPosition; // To store the original position
+    private Quaternion originalRotation; // To store the original rotation
+    public AudioClip successSound; // Sound for placing in the correct basket
+    public AudioClip errorSound;   // Sound for placing in the wrong basket
     private AudioSource audioSource;
 
     void Start()
     {
+        // Get the XRGrabInteractable component
         grabInteractable = GetComponent<XRGrabInteractable>();
         rb = GetComponent<Rigidbody>();
 
-        // تخزين الموقع الأصلي والتدوير
+        if (grabInteractable == null)
+        {
+            Debug.LogError("XRGrabInteractable is missing on this object!");
+            return;
+        }
+
+        // Store the original position and rotation
         originalPosition = transform.position;
         originalRotation = transform.rotation;
 
-        // تعطيل الفيزيائية في البداية
+        // Disable physics initially
         rb.isKinematic = true;
         rb.useGravity = false;
 
-        // ربط الأحداث عند الإمساك
+        // Add listeners for grab events programmatically
         grabInteractable.selectEntered.AddListener(OnGrab);
         grabInteractable.selectExited.AddListener(OnRelease);
 
-        // إضافة AudioSource
+        // Add AudioSource
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        Debug.Log("FruitAndVegetableManager initialized and event listeners added.");
     }
 
     private void OnGrab(SelectEnterEventArgs args)
     {
-        // عند الإمساك، تعطيل الحركة الكينماتيكية
+        // Enable physics when grabbed
         rb.isKinematic = false;
         rb.useGravity = true;
+
+        Debug.Log($"Object grabbed: {gameObject.name}");
     }
 
     private void OnRelease(SelectExitEventArgs args)
     {
-        // عند الإفلات، تحقق من السلة
+        Debug.Log($"Object released: {gameObject.name}");
+
+        // Check if the object is placed correctly or dropped on the ground
+        Invoke(nameof(CheckPosition), 0.1f); // Slight delay to ensure physics settle
+    }
+
+    private void CheckPosition()
+    {
+        // Check for the "Ground" directly below the object
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1f))
+        {
+            if (hit.collider.CompareTag("Ground"))
+            {
+                Debug.Log("Object is on the ground. It can be picked up again.");
+                return; // Exit the function if the object is on the ground
+            }
+        }
+
+        // If not on the ground, check if it's in the correct basket
         CheckBasket();
     }
+    
+
+    
 
     private void CheckBasket()
     {
-        // تحقق من السلة التي يتم وضع الكائن فيها
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.5f); // المسافة التي يمكن أن تلتقط فيها السلة
-        bool isCorrectBasket = false; // هل الكائن وضع في السلة الصحيحة؟
+        // Check if the object is placed in the correct basket
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.5f); // Check nearby colliders within a small radius
+        bool isCorrectBasket = false; // Track if the object is in the correct basket
 
         foreach (var collider in colliders)
         {
             if (collider.CompareTag("FruitBasket") && objectType == "Fruit")
             {
-                // وضع الفاكهة في سلة الفواكه
-                Debug.Log("تم وضع الفاكهة في سلة الفواكه");
-                PlaySuccessSound(); // تشغيل الصوت التحفيزي
+                // Fruit placed in the fruit basket
+                Debug.Log("Fruit placed in the correct basket.");
+                PlaySuccessSound(); // Play success sound
                 isCorrectBasket = true;
                 break;
             }
             else if (collider.CompareTag("VegetableBasket") && objectType == "Vegetable")
             {
-                // وضع الخضراوات في سلة الخضراوات
-                Debug.Log("تم وضع الخضراوات في سلة الخضراوات");
-                PlaySuccessSound(); // تشغيل الصوت التحفيزي
+                // Vegetable placed in the vegetable basket
+                Debug.Log("Vegetable placed in the correct basket.");
+                PlaySuccessSound(); // Play success sound
                 isCorrectBasket = true;
                 break;
             }
         }
 
-        // إذا لم يتم وضع الكائن في السلة الصحيحة، أعده إلى مكانه الأصلي وتشغيل صوت الخطأ
+        // If not placed in the correct basket, reset its position and play the error sound
         if (!isCorrectBasket)
         {
-            Debug.Log("تم وضع الكائن في السلة الخاطئة. إعادة الفاكهة إلى مكانها الأصلي.");
-            PlayErrorSound(); // تشغيل الصوت الذي يشير إلى الخطأ
+            Debug.Log("Object placed in the wrong basket. Returning it to its original position.");
+            PlayErrorSound(); // Play error sound
             ReturnToOriginalPosition();
         }
     }
@@ -89,7 +121,7 @@ public class FruitAndVegetableManager : MonoBehaviour
     {
         if (audioSource != null && successSound != null)
         {
-            audioSource.PlayOneShot(successSound); // تشغيل الصوت التحفيزي
+            audioSource.PlayOneShot(successSound); // Play success sound
         }
     }
 
@@ -97,20 +129,26 @@ public class FruitAndVegetableManager : MonoBehaviour
     {
         if (audioSource != null && errorSound != null)
         {
-            audioSource.PlayOneShot(errorSound); // تشغيل صوت الخطأ
+            audioSource.PlayOneShot(errorSound); // Play error sound
         }
     }
 
     private void ReturnToOriginalPosition()
     {
-        // إعادة الكائن إلى مكانه الأصلي
+        // Reset the object to its original position
+        rb.isKinematic = true;
+        rb.useGravity = false;
         transform.position = originalPosition;
         transform.rotation = originalRotation;
     }
 
     private void OnDestroy()
     {
-        grabInteractable.selectEntered.RemoveListener(OnGrab);
-        grabInteractable.selectExited.RemoveListener(OnRelease);
+        // Remove listeners to prevent memory leaks
+        if (grabInteractable != null)
+        {
+            grabInteractable.selectEntered.RemoveListener(OnGrab);
+            grabInteractable.selectExited.RemoveListener(OnRelease);
+        }
     }
 }
