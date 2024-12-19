@@ -2,6 +2,44 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
+    [Header("Canvas Settings")]
+    [SerializeField] private GameObject[] canvases;
+
+    private int currentCanvasIndex = 0;
+
+    void Start()
+    {
+        ShowCanvas(currentCanvasIndex);
+    }
+
+    public void ShowCanvas(int index)
+    {
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            canvases[i].SetActive(i == index);
+        }
+
+        // Get the SnapPoint of the active canvas
+        SnapPoint snapPoint = canvases[index].GetComponentInChildren<SnapPoint>();
+        if (snapPoint != null && snapPoint.totalObjectsToSnap == snapPoint.snappedObjectCount)
+        {
+            snapPoint.TriggerFireworks();
+        }
+    }
+
+    public void NextCanvas()
+    {
+        canvases[currentCanvasIndex].SetActive(false);
+        currentCanvasIndex = (currentCanvasIndex + 1) % canvases.Length;
+        ShowCanvas(currentCanvasIndex);
+    }
+}
+
+
+/*using UnityEngine;
+
+public class CanvasManager : MonoBehaviour
+{
     [SerializeField] private GameObject[] canvases; // Array to hold your canvases
     private ObjectManager objectManager; // Reference to the ObjectManager
 
@@ -53,7 +91,7 @@ public class CanvasManager : MonoBehaviour
         // Show the next canvas
         ShowCanvas(currentCanvasIndex);
     }
-}
+}*/
 
 
 
