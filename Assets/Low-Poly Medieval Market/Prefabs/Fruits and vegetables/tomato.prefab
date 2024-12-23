@@ -11,11 +11,8 @@ GameObject:
   - component: {fileID: 2488240709408288730}
   - component: {fileID: 1524426867073704063}
   - component: {fileID: 3657817218129695925}
-  - component: {fileID: -8865256510158983637}
   - component: {fileID: 5632429750494818521}
   - component: {fileID: -8610410150000919892}
-  - component: {fileID: -4366934220170927119}
-  - component: {fileID: 3169704690527751774}
   m_Layer: 0
   m_Name: tomato
   m_TagString: Vegetable
@@ -88,28 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &-8865256510158983637
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3009478848925545824}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5892359386350019813, guid: ff67b2d0df360374eadb902749e92c49, type: 3}
 --- !u!54 &5632429750494818521
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -289,33 +264,3 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &-4366934220170927119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3009478848925545824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f08f55818349724b822296f8bf26b26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectType: 
-  successSound: {fileID: 8300000, guid: e5f6bbfa8f107364fb2b6895f3a2f7c4, type: 3}
-  errorSound: {fileID: 8300000, guid: 59387089b1b721043b3b464be6ba905b, type: 3}
---- !u!114 &3169704690527751774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3009478848925545824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f08f55818349724b822296f8bf26b26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectType: Vegetable
-  successSound: {fileID: 8300000, guid: e5f6bbfa8f107364fb2b6895f3a2f7c4, type: 3}
-  errorSound: {fileID: 8300000, guid: 59387089b1b721043b3b464be6ba905b, type: 3}
