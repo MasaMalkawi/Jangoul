@@ -133,4 +133,9 @@ public class SnapPoint : MonoBehaviour
 
         isSnapped = false;
     }
+   
 }
+
+
+
+
