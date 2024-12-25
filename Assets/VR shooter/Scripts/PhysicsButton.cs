@@ -2,11 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-/*Coppied from youtube video
- * Honestly i'm not too fond of the code, but that's okay
- * It'll have to do
- * https://www.youtube.com/watch?v=fTtLY0JdVqk
- * */
+
 public class PhysicsButton : MonoBehaviour
 {
     public Rigidbody buttonTopRigid;
