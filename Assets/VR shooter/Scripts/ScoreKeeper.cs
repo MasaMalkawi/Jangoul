@@ -1,10 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
-using UnityEngine.SceneManagement;
-
 public class ScoreKeeper : MonoBehaviour
 {
     private int[] scores;
@@ -15,35 +13,23 @@ public class ScoreKeeper : MonoBehaviour
 
     private void Awake()
     {
+        // تأكد من عدم وجود أكثر من نسخة واحدة من ScoreKeeper في المشهد
         if (current == null)
         {
             current = this;
-            DontDestroyOnLoad(current);
-            if (SceneManager.GetActiveScene().buildIndex == 1)
-            {
-                current.score = 0;
-                current.scoreText.text = "Score : " + score;
-            }
-            else
-            {
-                current.scoreText.text = " ";
-                print("Setting Blank Scores;");
-            }
+            // لا يتم استخدام DontDestroyOnLoad هنا، وبالتالي سيُدمّر الكائن عند الانتقال إلى مشهد آخر
         }
         else
         {
-            if (SceneManager.GetActiveScene().buildIndex == 1)
-            {
-                current.score = 0;
-                current.scoreText.text = "Score : " + score;
-            }
-            else
-            {
-                current.scoreText.text = " ";
-            }
+            // إذا كان هناك نسخة أخرى من الكائن، سيتم تدميره
             Destroy(gameObject);
         }
+
+        // تحديث النص عند بداية اللعبة
+        score = 0;
+        scoreText.text = "Score : " + score;
     }
+
     private void Start()
     {
         score = 0;
@@ -57,8 +43,8 @@ public class ScoreKeeper : MonoBehaviour
 
     public void SaveScores()
     {
-        string[] nam = GetNames();//just to be sure its loaded and shit
-        int[] sco = GetScores();//just to be sure its loaded and shit
+        string[] nam = GetNames(); //just to be sure it's loaded and shit
+        int[] sco = GetScores(); //just to be sure it's loaded and shit
         PlayerPrefs.SetInt("S1", sco[0]);
         PlayerPrefs.SetString("B1", nam[0]);
         PlayerPrefs.SetInt("S2", sco[1]);
@@ -89,22 +75,23 @@ public class ScoreKeeper : MonoBehaviour
     {
         names = new string[] { "###", "###", "###", "###", "###" };
         scores = new int[] { 0, 0, 0, 0, 0 };
-        print("RESETING DATA");
+        print("RESETTING DATA");
         SaveScores();
     }
+
     private void LoadData()
     {
-        if (PlayerPrefs.HasKey("S1"))//if we set one we set them all
+        if (PlayerPrefs.HasKey("S1")) //if we set one we set them all
         {
             names = new string[5];
-            names[0] = PlayerPrefs.GetString("B1");//no fucking idea why I used B
+            names[0] = PlayerPrefs.GetString("B1");
             names[1] = PlayerPrefs.GetString("B2");
             names[2] = PlayerPrefs.GetString("B3");
             names[3] = PlayerPrefs.GetString("B4");
             names[4] = PlayerPrefs.GetString("B5");
 
             scores = new int[5];
-            scores[0] = PlayerPrefs.GetInt("S1");//S is for score dumbass
+            scores[0] = PlayerPrefs.GetInt("S1");
             scores[1] = PlayerPrefs.GetInt("S2");
             scores[2] = PlayerPrefs.GetInt("S3");
             scores[3] = PlayerPrefs.GetInt("S4");
@@ -112,27 +99,28 @@ public class ScoreKeeper : MonoBehaviour
         }
         else
         {
-            names = new string[] {"###", "###", "###", "###", "###"};
+            names = new string[] { "###", "###", "###", "###", "###" };
             scores = new int[] { 0, 0, 0, 0, 0 };
         }
     }
 
     public void SetName(string nam)
     {
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
-            if(names[i] == "!" || names[i] == null || names[i] == "")
+            if (names[i] == "!" || names[i] == null || names[i] == "")
             {
                 names[i] = nam;
                 return;
             }
         }
     }
+
     internal bool CheckHighScore()
     {
         LoadData();
-        //i know a loop is faster, I'm lazy
-        if(score > scores[0])
+        // Checking for high scores
+        if (score > scores[0])
         {
             scores[4] = scores[3];
             scores[3] = scores[2];
@@ -145,6 +133,7 @@ public class ScoreKeeper : MonoBehaviour
             names[2] = names[1];
             names[1] = names[0];
             names[0] = "!";
+
             return true;
         }
         else if (score > scores[1])
@@ -158,6 +147,7 @@ public class ScoreKeeper : MonoBehaviour
             names[3] = names[2];
             names[2] = names[1];
             names[1] = "!";
+
             return true;
         }
         else if (score > scores[2])
@@ -169,6 +159,7 @@ public class ScoreKeeper : MonoBehaviour
             names[4] = names[3];
             names[3] = names[2];
             names[2] = "!";
+
             return true;
         }
         else if (score > scores[3])
@@ -178,6 +169,7 @@ public class ScoreKeeper : MonoBehaviour
 
             names[4] = names[3];
             names[3] = "!";
+
             return true;
         }
         else if (score > scores[4])
@@ -185,8 +177,10 @@ public class ScoreKeeper : MonoBehaviour
             scores[4] = score;
 
             names[4] = "!";
+
             return true;
         }
         return false;
     }
 }
+

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 using TMPro;
 
 public class TargetManager : MonoBehaviour
@@ -136,7 +136,7 @@ public class TargetManager : MonoBehaviour
             timeText.text = "NEW HIGH SCORE";
             timeText.fontSize = 70;
             timeText.color = new Color(80, 255, 0);
-            SceneManager.LoadScene(2);
+         
             yield return new WaitForSeconds(3f);
         }
         else
@@ -149,7 +149,7 @@ public class TargetManager : MonoBehaviour
             timeText.fontSize = 90;
             timeText.color = new Color(80, 255, 0);
             yield return new WaitForSeconds(2f);
-            SceneManager.LoadScene(0);
+           
         }
     }
 }
