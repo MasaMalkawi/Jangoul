@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
-  m_Name: ReferenceImageLibrary
+  m_Script: {fileID: 11500000, guid: b2f528b98f844ed8b6b2d5fdf90b40e6, type: 3}
+  m_Name: XRSimulationPreferences
   m_EditorClassIdentifier: 
-  m_GuidLow: 5587082863743999939
-  m_GuidHigh: 2846887418253728910
-  m_DataStore:
-    m_Storage: []
-  m_Images: []
+  m_EnvironmentPrefab: {fileID: 0}
+  m_FallbackEnvironmentPrefab: {fileID: 7576867131100388943, guid: c7b92c392902f4043a03a64032c02fe1,
+    type: 3}
+  m_EnableNavigation: 1
