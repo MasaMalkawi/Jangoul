@@ -125,7 +125,8 @@ public class FireworkManager : MonoBehaviour
         return true;
     }
 
-    private void TriggerFirework()
+    // Made public to allow access from other scripts
+    public void TriggerFirework()
     {
         fireworkTriggered = true;
 
@@ -180,7 +181,7 @@ public class FireworkMovement : MonoBehaviour
         transform.position += direction * moveSpeed * Time.deltaTime;
 
         // Destroy the firework if it moves too far (optional logic)
-        if (transform.position.y > 7f) // Example: stop moving after reaching 10 units height
+        if (transform.position.y > 7f) // Example: stop moving after reaching 7 units height
         {
             Destroy(gameObject);
         }

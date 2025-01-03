@@ -23,6 +23,12 @@ TagManager:
   - Green
   - Blue
   - Ground
+  - Shapes1
+  - Shapes2
+  - Shapes3
+  - Shapes4
+  - Shapes5
+  - Shapes6
   layers:
   - Default
   - TransparentFX
