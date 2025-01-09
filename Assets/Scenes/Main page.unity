@@ -186,6 +186,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6913339381738652136, guid: e0b49f528968bc04e83a76f8e120fc0d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7351721036961988751, guid: e0b49f528968bc04e83a76f8e120fc0d,
         type: 3}
       propertyPath: m_EnableTurnAround
@@ -558,6 +563,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Device Simulator
       objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -575,6 +585,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enviroment
+      objectReference: {fileID: 0}
+    - target: {fileID: 259610946590139926, guid: 2d4dfd5d168255940ac9750685a78fa3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4960148072779025302, guid: 2d4dfd5d168255940ac9750685a78fa3,
         type: 3}
@@ -840,6 +855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main page UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7192233635097164123, guid: bd8cbc7476b281540b19c6c18c23c9f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7641383728199508073, guid: bd8cbc7476b281540b19c6c18c23c9f0,
         type: 3}

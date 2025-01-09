@@ -5,34 +5,37 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
+    path: Assets/Scenes/Controllers page.unity
+    guid: f3e4aff7c7836d447b8c7a09e32af5c6
+  - enabled: 0
     path: Assets/Scenes/Main page.unity
     guid: 92576031e4b3eb14f873b399072cdeca
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Language page.unity
     guid: d00d758fbfeae97409e47291aa55c642
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/game menu.unity
     guid: 26151eb8b73e2cd42a26749ca4f5d963
   - enabled: 0
     path: Assets/Scenes/Arabic.unity
     guid: 53439800222e3724f8ae298c4e37dd43
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Directions.unity
     guid: 57c4a12e64986aa4f9a0ba62cbf9aa02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Colors.unity
     guid: 5ac6339520f173a4e828b4c9f7f33db0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Emotions.unity
     guid: 2a02c8d099ffb4540aeca3469d9eedfc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/English.unity
     guid: 8b8655e168979f64ca3c3f1efcc58f19
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Math.unity
     guid: 6b4011cfb67d9b045a39b11e16b5c54e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Fruits.unity
     guid: 03dd6a0b246181746aaebf446abe0e56
   - enabled: 1
@@ -41,7 +44,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Space.unity
     guid: a87b5451770bf91429541e0dbc790ce6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Transportation.unity
     guid: a8a098b94f326004683379ec531a12e5
   m_configObjects:
