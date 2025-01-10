@@ -11,12 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/game menu.unity
     guid: 26151eb8b73e2cd42a26749ca4f5d963
-  - enabled: 1
-    path: Assets/Scenes/Controllers page.unity
-    guid: f3e4aff7c7836d447b8c7a09e32af5c6
-  - enabled: 1
-    path: Assets/Scenes/Language page.unity
-    guid: d00d758fbfeae97409e47291aa55c642
   - enabled: 0
     path: Assets/Scenes/Arabic.unity
     guid: 53439800222e3724f8ae298c4e37dd43
@@ -41,7 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Shapes.unity
     guid: 776b49f20c353e546a39d87ace08e1e3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Space.unity
     guid: a87b5451770bf91429541e0dbc790ce6
   - enabled: 1
